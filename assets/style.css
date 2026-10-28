@@ -1,0 +1,52 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f3f6fa; color: #25364c; font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif; font-size: 15px; line-height: 1.7; }
+a { color: #155bb0; text-decoration: none; } a:hover { text-decoration: underline; }
+button,input,select,textarea { font: inherit; } button { cursor: pointer; }
+button,.button { background: #1662bd; color: #fff; border: 1px solid #1662bd; padding: 8px 17px; display: inline-block; border-radius: 4px; }
+button:hover,.button:hover { background: #104c95; color: #fff; text-decoration: none; }
+button.secondary,.button.secondary { color: #20588d; background: #fff; border-color: #bdcfe4; }
+button:focus,a:focus,input:focus,textarea:focus,select:focus { outline: 2px solid #e09b1a; outline-offset: 2px; }
+input[type=text],select,textarea { max-width: 100%; border: 1px solid #b9c9db; border-radius: 4px; background: #fff; color: #25364c; padding: 9px 11px; }
+.top { background: #fff; border-bottom: 1px solid #dae3ef; padding: 17px 28px; }
+.brand { font-size: 20px; color: #143964; font-weight: bold; } .brand-mark { background: #1662bd; color: #fff; padding: 5px 10px; margin-right: 10px; border-radius: 5px; }
+.top-link { float: right; margin-top: 6px; font-size: 14px; }
+.shell { max-width: 1440px; margin: 0 auto; padding: 28px; }
+.sidebar { float: left; width: 244px; } .main { margin-left: 274px; }
+.nav { margin: 0; padding: 0; list-style: none; } .nav li { margin: 3px 0; }
+.nav a { display: block; padding: 9px 12px; color: #4b607a; font-size: 13px; border-radius: 4px; }
+.nav a.active { background: #e3edfc; color: #1159ad; font-weight: bold; border-left: 3px solid #1662bd; }
+.nav-num { display: inline-block; width: 25px; color: #6b829e; }
+.eyebrow { color: #4275a9; font-size: 12px; letter-spacing: 2px; font-weight: bold; }
+h1 { font-size: 30px; line-height: 1.4; margin: 10px 0; color: #173654; } h2 { font-size: 20px; margin: 0 0 14px; } h3 { font-size: 17px; margin: 0 0 10px; }
+p { margin: 8px 0 16px; } .muted { color: #61738b; font-size: 13px; }
+.hero { padding: 25px 30px; background: #e8f0fd; border: 1px solid #d3e2f7; border-radius: 8px; margin-bottom: 22px; }
+.hero p { max-width: 720px; margin-bottom: 10px; }
+.notice { background: #fff8e9; border: 1px solid #ecd3a3; padding: 13px 17px; margin: 17px 0; border-radius: 5px; color: #70521e; font-size: 14px; }
+.panel { padding: 24px; background: #fff; border: 1px solid #dce5ef; border-radius: 7px; margin: 20px 0; }
+.stats { width: 100%; border-collapse: collapse; margin: 20px 0; background: #fff; border: 1px solid #dce5ef; }
+.stats td { width: 33%; padding: 16px 23px; border-right: 1px solid #dce5ef; } .stat { font-size: 27px; color: #1858a3; font-weight: bold; margin-right: 9px; }
+.search { background: #fff; padding: 16px 20px; border: 1px solid #dce5ef; border-radius: 6px; } .search input { width: 65%; margin: 0 8px; }
+.cards { margin: 15px -7px 0; } .card-wrap { display: inline-block; vertical-align: top; width: 50%; padding: 7px; }
+.card { border: 1px solid #dce5ef; background: #fff; border-radius: 6px; padding: 20px; min-height: 184px; }
+.card:hover { border-color: #9fbce2; } .card h2 { font-size: 17px; margin: 10px 0 7px; } .card h2 a { color: #193d66; }
+.tag { display: inline-block; background: #f0f4f8; color: #5f7189; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+.tag.blue { background: #e6f0ff; color: #145cae; } .tag.done { background: #e3f4eb; color: #256544; }
+.card-footer { border-top: 1px solid #edf1f6; margin-top: 13px; padding-top: 11px; font-size: 13px; }
+.card-footer a { float: right; } .clear { clear: both; }
+.anchor-nav a { margin-right: 18px; display: inline-block; }
+.empty { padding: 28px 20px; text-align: center; background: #f7f9fc; border: 1px dashed #c8d5e4; border-radius: 5px; }
+.empty strong { display: block; margin-bottom: 8px; } .categories { margin: 16px 0; } .categories span { display: inline-block; padding: 4px 12px; margin: 4px; border: 1px solid #dce5ef; border-radius: 4px; color: #63738b; }
+.table-scroll { overflow-x: auto; } table.data { width: 100%; border-collapse: collapse; margin: 15px 0; }
+.data th,.data td { border: 1px solid #d8e2ef; padding: 9px; text-align: left; vertical-align: top; } .data th { background: #eef4fb; white-space: nowrap; }
+.data .field { width: 145px; padding: 6px; font-family: Consolas,"Microsoft YaHei",monospace; } .copy-field { font-size: 12px; padding: 4px 8px; margin: 4px 0 0 5px; }
+.pending { color: #885c14; } .pending-value { display: block; padding: 6px; }
+.step { border-left: 3px solid #bad1f1; margin: 18px 0; padding-left: 16px; } .step ol { padding-left: 24px; }
+.form-row { margin: 13px 0; } .form-row label { display: block; margin-bottom: 5px; font-weight: bold; }
+#progress-note { width: 100%; min-height: 80px; } #progress-step { width: 100%; } #transfer-text { width: 100%; height: 155px; font-family: Consolas,monospace; font-size: 13px; }
+.toolbar button { margin: 5px 8px 5px 0; } .message { padding: 10px 0; color: #255c38; font-weight: bold; }
+.manual { position: fixed; z-index: 20; bottom: 15px; right: 15px; width: 440px; max-width: 94%; padding: 20px; background: #fff; border: 2px solid #1662bd; box-shadow: 0 3px 20px #b5c1d0; }
+.manual textarea { width: 100%; height: 110px; font-family: Consolas,"Microsoft YaHei",monospace; } .hidden { display: none; }
+.footer { clear: both; text-align: center; color: #6a7f97; padding: 28px 12px; font-size: 12px; }
+@media screen and (min-width: 1250px) { .card-wrap { width: 33.333%; } }
+@media screen and (max-width: 800px) { .sidebar { float: none; width: auto; margin-bottom: 20px; } .sidebar .nav { display: none; } .main { margin-left: 0; } .shell { padding: 15px; } h1 { font-size: 25px; } .top { padding: 15px; } .brand { font-size: 16px; } .hero { padding: 20px; } .stats td { padding: 12px; } .stat { display: block; font-size: 24px; } .panel { padding: 17px; } }
+@media screen and (max-width: 520px) { .card-wrap { width: 100%; } .top-link { float: none; display: block; } .search input { display: block; width: 100%; margin: 8px 0; } .toolbar button { display: block; width: 100%; } }
