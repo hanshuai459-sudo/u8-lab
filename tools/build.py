@@ -59,7 +59,7 @@ def frame(labs, active, content):
 def home(labs):
     verified = sum(1 for lab in labs for table in lab['tables'] for row in table['rows'] if row['verified'])
     html = '''<div class="hero"><div class="eyebrow">ACCOUNTING INFORMATION SYSTEM</div><h1>用友U8十三项实验资料库</h1><p>打开实验，查找教材数据，复制到 U8。让机房里的每一次录入更清楚。</p><a class="button" href="labs/02.html">进入实验二：基础设置业务 →</a> <a class="button secondary" href="labs/03.html">进入实验三：总账初始设置 →</a></div>
-<div class="notice"><strong>教材核对状态：</strong>已整理实验二第67～71页及实验三3张照片（表4-2～4-4、操作指导；实验三页码待核对）。目录照片与实验二第72～73页待提供。13项实验名称沿用用户文字，待目录照片核对。教材登录凭据与原始照片未公开。</div>
+<div class="notice"><strong>教材核对状态：</strong>已整理实验二第67～71页、实验三3张照片（页码待核对）及实验四第109～110页（11笔业务及角色清单）。目录照片、实验二第72～73页及实验四后续操作指导待提供。13项实验名称沿用用户文字，待目录照片核对。教材登录凭据与原始照片未公开。</div>
 <table class="stats" role="presentation"><tr><td><span class="stat">13</span>实验入口</td><td><span class="stat">''' + str(verified) + '''</span>已核对数据行</td><td><span class="stat" id="done-count">0</span>已完成实验</td></tr></table>
 <div class="search"><label for="search">查找实验</label><input id="search" type="text" placeholder="输入实验名称，如：基础设置"><button id="search-button" type="button">搜索</button><div class="muted" id="search-result">共13个实验；进度由你自行记录</div></div><div class="cards">'''
     for lab in labs:
@@ -68,7 +68,11 @@ def home(labs):
 
 def table_html(table):
     tid = table['id']
-    html = f'<div class="panel" id="section-{tid}"><h3>{e(table["title"])}</h3><p class="muted">教材来源：{e(table["source"])}</p><button type="button" data-copy="table" data-target="{tid}">复制筛选后已核对表格</button> <a href="#data">返回资料分类 ↑</a><div class="table-scroll"><table class="data" id="{tid}"><thead><tr>'
+    empty_label = table.get('emptyLabel', '教材留空')
+    html = f'<div class="panel" id="section-{tid}"><h3>{e(table["title"])}</h3><p class="muted">教材来源：{e(table["source"])}</p>'
+    if table.get('description'):
+        html += '<p>' + e(table['description']) + '</p>'
+    html += f'<button type="button" data-copy="table" data-target="{tid}">复制筛选后已核对表格</button> <a href="#data">返回资料分类 ↑</a><div class="table-scroll"><table class="data" id="{tid}"><thead><tr>'
     html += ''.join(f'<th scope="col" data-label="{e(c)}">{e(c)}</th>' for c in table['columns']) + '<th scope="col">核对 / 操作</th></tr></thead><tbody>'
     for index, row in enumerate(table['rows']):
         rid = f'{tid}-r{index}'
@@ -76,8 +80,8 @@ def table_html(table):
         for ci, value in enumerate(row['values']):
             fid = f'{rid}-c{ci}'
             if row['verified']:
-                html += f'<td><input class="field" id="{fid}" data-field="1" type="text" readonly="readonly" aria-label="{e(table["columns"][ci])}" placeholder="教材留空" value="{e(value)}">'
-                html += f'<button class="copy-field secondary" type="button" data-copy="field" data-target="{fid}">复制</button>' if value else '<span class="muted">教材留空</span>'
+                html += f'<td><input class="field" id="{fid}" data-field="1" type="text" readonly="readonly" aria-label="{e(table["columns"][ci])}" placeholder="{e(empty_label)}" value="{e(value)}">'
+                html += f'<button class="copy-field secondary" type="button" data-copy="field" data-target="{fid}">复制</button>' if value else '<span class="muted">' + e(empty_label) + '</span>'
                 html += '</td>'
             else:
                 html += f'<td class="pending"><span class="pending-value">{e(value) if value else "待核对"}</span></td>'
@@ -96,7 +100,7 @@ def detail(lab):
         if lab['id'] == '02':
             html += '<div class="notice">资料按照片转录，空白栏保持为空，不补成0或默认值。表3-14转账凭证限制科目被手指遮挡；表3-13主营业务成本方向印为“贷”，均标为待核对并暂停该行复制。实验要求：以账套主管“陈明”的身份进行基础设置（第71页）。</div>'
         if lab.get('notes'):
-            html += '<div class="notice">' + e(lab['notes'][0]) + '<br>详细教材说明见下方 <a href="#textbook-notes">教材说明与录入提醒</a>。合计数与上级科目请按教材说明处理。</div>'
+            html += '<div class="notice">' + e(lab['notes'][0]) + '<br>详细教材说明见下方 <a href="#textbook-notes">教材说明与录入提醒</a>。' + e(lab.get('notesLinkHint', '合计数与上级科目请按教材说明处理。')) + '</div>'
         html += '<div class="categories">'
         html += ''.join(f'<a class="button secondary" href="#section-{t["id"]}">{e(t["title"])}（{len(t["rows"])}）</a> ' for t in lab['tables'])
         html += '</div>'
