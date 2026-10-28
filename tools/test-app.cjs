@@ -10,7 +10,7 @@ function env(options={}) {
     constructor(tag,id,attrs={}) { this.tagName=tag; this.id=id; this.attrs=attrs; this.value=''; this.textContent=''; this.style={}; this.className=''; this.events={}; this.children=[]; all.push(this); if(id) nodes[id]=this; }
     getAttribute(name) { return Object.hasOwn(this.attrs,name) ? this.attrs[name] : null; }
     addEventListener(name,fn) { this.events[name]=fn; }
-    attachEvent(name,fn) { this.events[name.slice(2)]=fn; }
+    attachEvent(name,fn) { this.events[name.slice(2)]=function(){fn.call(undefined);}; }
     getElementsByTagName(tag) { return this.children.filter(x=>x.tagName===tag); }
     click() { if(this.events.click)this.events.click.call(this); }
     focus(){} select(){this.selected=true;}

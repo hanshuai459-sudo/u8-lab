@@ -4,7 +4,7 @@
     var lab = document.body.getAttribute('data-lab');
     function el(id) { return document.getElementById(id); }
     function text(node, value) { if (node) { if ('textContent' in node) { node.textContent = value; } else { node.innerText = value; } } }
-    function on(node, event, fn) { if (!node) { return; } if (node.addEventListener) { node.addEventListener(event, fn, false); } else { node.attachEvent('on' + event, fn); } }
+    function on(node, event, fn) { if (!node) { return; } if (node.addEventListener) { node.addEventListener(event, fn, false); } else { node.attachEvent('on' + event, function () { fn.call(node, window.event); }); } }
     function message(value) { text(el('message'), value); }
     function validProgress(data) {
         var id, row, result = {}, count = 0;
