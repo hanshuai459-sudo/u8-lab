@@ -58,8 +58,8 @@ def frame(labs, active, content):
 
 def home(labs):
     verified = sum(1 for lab in labs for table in lab['tables'] for row in table['rows'] if row['verified'])
-    html = '''<div class="hero"><div class="eyebrow">ACCOUNTING INFORMATION SYSTEM</div><h1>用友U8十三项实验资料库</h1><p>打开实验，查找教材数据，复制到 U8。让机房里的每一次录入更清楚。</p><a class="button" href="labs/02.html">进入实验二：基础设置业务 →</a></div>
-<div class="notice"><strong>教材核对状态：</strong>已收到并整理第67～71页基础设置资料；目录照片与第72～73页待提供。13项实验名称沿用用户文字，待目录照片核对。教材登录凭据与原始照片未公开。</div>
+    html = '''<div class="hero"><div class="eyebrow">ACCOUNTING INFORMATION SYSTEM</div><h1>用友U8十三项实验资料库</h1><p>打开实验，查找教材数据，复制到 U8。让机房里的每一次录入更清楚。</p><a class="button" href="labs/02.html">进入实验二：基础设置业务 →</a> <a class="button secondary" href="labs/03.html">进入实验三：总账初始设置 →</a></div>
+<div class="notice"><strong>教材核对状态：</strong>已整理实验二第67～71页及实验三3张照片（表4-2～4-4、操作指导；实验三页码待核对）。目录照片与实验二第72～73页待提供。13项实验名称沿用用户文字，待目录照片核对。教材登录凭据与原始照片未公开。</div>
 <table class="stats" role="presentation"><tr><td><span class="stat">13</span>实验入口</td><td><span class="stat">''' + str(verified) + '''</span>已核对数据行</td><td><span class="stat" id="done-count">0</span>已完成实验</td></tr></table>
 <div class="search"><label for="search">查找实验</label><input id="search" type="text" placeholder="输入实验名称，如：基础设置"><button id="search-button" type="button">搜索</button><div class="muted" id="search-result">共13个实验；进度由你自行记录</div></div><div class="cards">'''
     for lab in labs:
@@ -93,10 +93,16 @@ def detail(lab):
     if not lab['tables']:
         html += '<div class="categories"><span>人员</span><span>部门</span><span>客户</span><span>供应商</span><span>银行账户</span><span>会计科目</span></div><div class="empty"><strong>待核对 · 尚未录入教材数据</strong>以上为预留资料分类，不代表教材实际包含这些表。<br>收到教材照片后逐项录入，并标记来源页码。税号、银行账号、科目编码和金额需逐项核对。</div>'
     if lab['tables']:
-        html += '<div class="notice">资料按照片转录，空白栏保持为空，不补成0或默认值。表3-14转账凭证限制科目被手指遮挡；表3-13主营业务成本方向印为“贷”，均标为待核对并暂停该行复制。实验要求：以账套主管“陈明”的身份进行基础设置（第71页）。</div><div class="categories">'
+        if lab['id'] == '02':
+            html += '<div class="notice">资料按照片转录，空白栏保持为空，不补成0或默认值。表3-14转账凭证限制科目被手指遮挡；表3-13主营业务成本方向印为“贷”，均标为待核对并暂停该行复制。实验要求：以账套主管“陈明”的身份进行基础设置（第71页）。</div>'
+        if lab.get('notes'):
+            html += '<div class="notice">' + e(lab['notes'][0]) + '<br>详细教材说明见下方 <a href="#textbook-notes">教材说明与录入提醒</a>。合计数与上级科目请按教材说明处理。</div>'
+        html += '<div class="categories">'
         html += ''.join(f'<a class="button secondary" href="#section-{t["id"]}">{e(t["title"])}（{len(t["rows"])}）</a> ' for t in lab['tables'])
         html += '</div>'
     html += '</div>' + ''.join(table_html(t) for t in lab['tables'])
+    if lab.get('notes'):
+        html += '<div class="panel" id="textbook-notes"><h2>教材说明与录入提醒</h2>' + ''.join('<p>' + e(note) + '</p>' for note in lab['notes']) + '</div>'
     html += '<div class="panel" id="steps"><h2>操作步骤指导</h2>'
     if not lab['steps']:
         html += '<div class="empty"><strong>待核对 · 尚无可引用的教材步骤</strong>实验二等待第72～73页照片；其他实验等待对应教材。不会依据通用 U8 经验补写步骤。</div><p class="muted">收到教材后，每项操作按照“进入菜单 → 点击按钮 → 填写数据 → 保存 → 检查结果”展示；教材未说明的部分会单独标为待核对。</p>'
